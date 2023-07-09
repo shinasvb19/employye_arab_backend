@@ -6,6 +6,7 @@ const employeeRoute = require('./routers/employeeRouter');
 const storeRoute = require('./routers/storeRouter');
 const managerRoute = require('./routers/managerRouter');
 const subManagerRoute = require('./routers/subManager');
+const workerRouter = require('./routers/workerRouter');
 const cors = require('cors')
 
 
@@ -19,6 +20,7 @@ app.use('/api', employeeRoute)
 app.use('/api', storeRoute)
 app.use('/api', managerRoute)
 app.use('/api', subManagerRoute)
+app.use('/api', workerRouter)
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });

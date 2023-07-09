@@ -3,7 +3,7 @@ const employeeSchema = require('../models/employeeModel')
 const subManagersSchema = require('../models/subManagerSchema')
 const workerSchema = require('../models/workersModel')
 const mongoose = require('mongoose')
-exports.createSubManager = async (req, res) => {
+exports.createWorker = async (req, res) => {
     try {
         const newWorker = new workerSchema({ name: req.body.name, employeeCode: req.body.empId, department: req.body.department });
         await newWorker.save();
