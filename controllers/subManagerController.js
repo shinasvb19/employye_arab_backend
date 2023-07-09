@@ -1,7 +1,7 @@
 const managerSchema = require('../models/managerModel')
 const storeSchema = require('../models/storeModel')
 const employeeSchema = require('../models/employeeModel')
-const subManagersSchema = require('../models/subManagerModel')
+const subManagersSchema = require('../models/subManagerSchema')
 const mongoose = require('mongoose')
 exports.createSubManager = async (req, res) => {
     try {
