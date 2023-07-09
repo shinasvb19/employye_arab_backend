@@ -2,7 +2,6 @@ const employeeSchema = require('../models/employeeModel');
 
 exports.createEmployee = async (req, res) => {
     try {
-        console.log(req.body);
         const newEmployee = new employeeSchema(req.body);
         await newEmployee.save();
         res.status(200).json(newEmployee)
@@ -22,9 +21,9 @@ exports.getEmployee = async (req, res) => {
 }
 exports.deleteEmployee = async (req, res) => {
     try {
-        const updatedEmployee = await employeeSchema.findOneAndUpdate({ _id: req.body.id }, { $set: { del_flag: req.body.del_flag } })
-        res.status(200).send('update success')
+        const updatedEmployee = await employeeSchema.findOneAndUpdate({ _id: req.body.id }, { $set: { del_flag: req.body.del_flag } }, { new: true })
+        res.status(200).json(updatedEmployee)
     } catch (error) {
-        res.status(500).send({ errMsg: "Internal server error" });
+        res.status(500).json({ errMsg: "Internal server error" });
     }
 }
