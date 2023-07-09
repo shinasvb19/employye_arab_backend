@@ -1,12 +1,14 @@
 const managerSchema = require('../models/managerModel')
 const storeSchema = require('../models/storeModel')
 const employeeSchema = require('../models/employeeModel')
+const mongoose = require('mongoose')
 exports.createManager = async (req, res) => {
     try {
-        const newManager = new managerSchema({ name: req.body.name, employeeCode: req.body.empId });
+        const employeeCode = new mongoose.Types.ObjectId(req.body.empId)
+        const newManager = new managerSchema({ name: req.body.name, employeeCode });
         await newManager.save();
-        const updateStore = await storeSchema.findOneAndUpdate(req.body.id, { $set: { manager: req.body.empId } })
-        const updateEmployee = await employeeSchema.findOneAndUpdate(req.body.empId, { $set: { role: 'manager' } })
+        await storeSchema.findByIdAndUpdate(req.body.storeId, { $set: { manager: newManager._id } })
+        await employeeSchema.findByIdAndUpdate(employeeCode, { $set: { role: 'manager' } })
         res.status(200).json(newManager)
     } catch (error) {
         res.status(500).send({ errMsg: "Internal server error" });
