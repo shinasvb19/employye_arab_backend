@@ -1,6 +1,6 @@
 const managerSchema = require('../models/managerModel')
 const storeSchema = require('../models/storeModel')
-const employeeSchema = require('../models/employee')
+const employeeSchema = require('../models/employeeModel')
 exports.createManager = async (req, res) => {
     try {
         const newManager = new managerSchema(req.body.name);
