@@ -5,6 +5,7 @@ const managerSchema = new mongoose.Schema({
     department: String,
     subManagers: Array,
     employeeCode: mongoose.Types.ObjectId,
+
 });
 const Manager = mongoose.model('Manager', managerSchema);
 module.exports = Manager;
