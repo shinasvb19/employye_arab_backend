@@ -16,6 +16,7 @@ exports.getEmployee = async (req, res) => {
         const allEmployee = await employeeSchema.find({ del_flag: false })
         res.status(200).json(allEmployee);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ errMsg: "Internal server error" });
     }
 }
