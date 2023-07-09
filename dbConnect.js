@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const mongoDBURL = 'mongodb://localhost:27017/storeManagement';
+const mongoDBURL = 'mongodb+srv://zarastore:zarastorezara@zarastore.w2rsjwv.mongodb.net/Store-Management';
 
 mongoose.connect(mongoDBURL, {
     useNewUrlParser: true,
