@@ -5,5 +5,5 @@ const subManagerSchema = new mongoose.Schema({
     department: String,
     workers: Array
 });
-const SubManager = mongoose.model('Store', subManagerSchema);
+const SubManager = mongoose.model('SubManager', subManagerSchema);
 module.exports = SubManager;
