@@ -11,7 +11,6 @@ exports.createSubManager = async (req, res) => {
         const store = await storeSchema.findById(req.body.storeId)
         const managerId = new mongoose.Types.ObjectId(store.manager)
         const submanagerId = new mongoose.Types.ObjectId(newSubManager._id)
-        console.log(submanagerId, managerId, store._id)
         await managerSchema.findByIdAndUpdate(managerId, { $push: {subManagers : submanagerId } })
         await employeeSchema.findByIdAndUpdate(employeeCode, { $set: { role: 'submanager' } })
         res.status(200).json(newSubManager)
@@ -20,3 +19,12 @@ exports.createSubManager = async (req, res) => {
         console.log(error);
     }
 }   
+
+exports.getSubManagers = async(req, res) => {
+    try {
+        const subManagers = await subManagersSchema.find();
+        res.status(200).json(subManagers)
+    } catch (error) {
+        res.status(500).send({ errMsg: "Internal server error" });
+    }
+}
