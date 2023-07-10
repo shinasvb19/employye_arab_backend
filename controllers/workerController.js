@@ -62,3 +62,12 @@ exports.getWorkers = async (req, res) => {
         res.status(500).send({ errMsg: "Internal server error" });
     }
 };
+exports.getManager = async (req, res) => {
+    try {
+        const assManager = await workerSchema.find({})
+        res.status(200).json(assManager)
+    } catch (error) {
+        res.status(500).send({ errMsg: "Internal server error" });
+
+    }
+}
