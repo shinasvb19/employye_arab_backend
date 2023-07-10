@@ -9,11 +9,20 @@ exports.createWorker = async (req, res) => {
         await newWorker.save();
         const workerId = new mongoose.Types.ObjectId(newWorker._id)
         const updateSubManager = await subManagersSchema.findOneAndUpdate(req.body.subManagerId, { $push: { workers: workerId } })
-        const updateEmployee = await employeeSchema.findOneAndUpdate(req.body.empId, { $set: { role: 'worker' } })
+        const updateEmployee = await employeeSchema.findByIdAndUpdate(req.body.empId, { $set: { role: 'worker' } })
 
         res.status(200).json(newWorker)
     } catch (error) {
         res.status(500).send({ errMsg: "Internal server error" });
         console.log(error);
     }
-}   
+}
+
+exports.getManager = async (req, res) => {
+    try {
+        const getAstManagers = await workerSchema.find({})
+        res.status(200).json(getAstManagers)
+    } catch (error) {
+        res.status(500).send({ errMsg: "Internal server error" });
+    }
+}
