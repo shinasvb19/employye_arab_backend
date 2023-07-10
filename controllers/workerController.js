@@ -71,3 +71,13 @@ exports.getManager = async (req, res) => {
 
     }
 }
+exports.addCoworker = async (req, res) => {
+    try {
+        const updateAsstManager = await workerSchema.findByIdAndUpdate(
+            req.body.asstId,
+            { $push: { coWorkers: req.body.empId } }
+        );
+    } catch (error) {
+        res.status(500).send({ errMsg: "Internal server error" });
+    }
+}
