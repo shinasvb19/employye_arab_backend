@@ -83,3 +83,28 @@ exports.addCoworker = async (req, res) => {
         res.status(500).send({ errMsg: "Internal server error" });
     }
 }
+
+exports.lookUpEmployee = async (req, res) => {
+    const { id } = new mongoose.Types.ObjectId(req.params)
+    try {
+        const result = await workerSchema.aggregate([{
+            $match: { _id: id },
+        }, {
+            $unwind: "$coWorkers"
+        }, {
+            $lookup: {
+                from: "employees",
+                localField: "coWorkers",
+                foreignField: "_id",
+                as: "employee",
+            },
+        },]
+
+        )
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(500).send({ errMsg: "Internal server error" });
+
+    }
+
+}
