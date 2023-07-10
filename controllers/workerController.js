@@ -73,10 +73,12 @@ exports.getManager = async (req, res) => {
 }
 exports.addCoworker = async (req, res) => {
     try {
+        const id = new mongoose.Types.ObjectId(req.body.empId)
         const updateAsstManager = await workerSchema.findByIdAndUpdate(
             req.body.asstId,
-            { $push: { coWorkers: req.body.empId } }
+            { $push: { coWorkers: id } }
         );
+        res.status(200).json(updateAsstManager)
     } catch (error) {
         res.status(500).send({ errMsg: "Internal server error" });
     }

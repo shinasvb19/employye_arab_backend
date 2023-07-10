@@ -4,7 +4,7 @@ const workerSchema = new mongoose.Schema({
     employeeCode: mongoose.Types.ObjectId,
     department: String,
     role: String,
-    coworkers: Array
+    coWorkers: Array
 });
 const Worker = mongoose.model('Worker', workerSchema);
 module.exports = Worker;
