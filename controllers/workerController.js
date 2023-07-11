@@ -127,3 +127,12 @@ exports.editProfile = async (req, res) => {
 
     }
 }
+exports.getCoWorkersDetails = async (req, res) => {
+    try {
+        const coWorkersDetails = await employeeSchema.find({ del_flag: false, role: { $exists: false } })
+        res.status(200).json(coWorkersDetails);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ errMsg: "Internal server error" });
+    }
+}
