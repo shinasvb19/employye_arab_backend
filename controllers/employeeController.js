@@ -28,3 +28,13 @@ exports.deleteEmployee = async (req, res) => {
         res.status(500).json({ errMsg: "Internal server error" });
     }
 }
+
+exports.editEmployee = async(req, res) => {
+    try {
+        const {id} = req.params
+        await employeeSchema.findByIdAndUpdate(id, req.body)
+        res.status(200).json("successfully edited")
+    } catch (err) {
+        res.status(500).json({ errMsg: "Internal server error" });
+    }
+}
