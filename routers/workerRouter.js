@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-    createWorker, getManager, addCoworker, getWorkers, lookUpEmployee, editProfile
+    createWorker, getManager, addCoworker, getWorkers, lookUpEmployee, editProfile, getProfiles
 } = require("../controllers/workerController");
 const router = express.Router();
 router.post("/add-worker", createWorker);
