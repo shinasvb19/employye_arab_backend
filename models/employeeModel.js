@@ -14,6 +14,9 @@ const employeeSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    files: {
+        type: Array
+    }
 });
 const Employee = mongoose.model('Employee', employeeSchema);
 module.exports = Employee;
