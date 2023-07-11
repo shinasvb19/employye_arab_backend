@@ -127,7 +127,8 @@ exports.lookUpEmployee = async (req, res) => {
 exports.getProfiles = async (req, res) => {
 
     try {
-        const foundUser = employeeSchema.findById(req.params.id)
+        const {id} = req.params
+        const foundUser = await employeeSchema.findById(id)
         res.status(200).json(foundUser);
     } catch (error) {
         res.status(500).send({ errMsg: "Internal server error" });
@@ -135,7 +136,8 @@ exports.getProfiles = async (req, res) => {
 }
 exports.editProfile = async (req, res) => {
     try {
-        const result = employeeSchema.findByIdAndUpdate(req.params.id, { $push: { files: req.body.files } })
+        console.log(req.body)
+        const result = await employeeSchema.findByIdAndUpdate(req.params.id, { $push: { files: req.body.files } })
         res.status(200).json(result);
     } catch (error) {
         res.status(500).send({ errMsg: "Internal server error" });
