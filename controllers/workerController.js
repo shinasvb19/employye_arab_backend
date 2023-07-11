@@ -85,22 +85,37 @@ exports.addCoworker = async (req, res) => {
 }
 
 exports.lookUpEmployee = async (req, res) => {
-    const { id } = new mongoose.Types.ObjectId(req.params)
+    console.log('object', req.params)
+    let {id} = req.params
+    id = new mongoose.Types.ObjectId(id)
+
+    console.log(id)
     try {
         const result = await workerSchema.aggregate([{
-            $match: { _id: id },
-        }, {
+            $match: { employeeCode: id },
+        },
+         {
             $unwind: "$coWorkers"
         }, {
             $lookup: {
                 from: "employees",
                 localField: "coWorkers",
                 foreignField: "_id",
+                as: "coWorkers",
+            },
+        }, {
+            $lookup: {
+                from: "employees",
+                localField: "employeeCode",
+                foreignField: "_id",
                 as: "employee",
             },
-        },]
+        },
+        { $unwind: '$employee'}
+    ]
 
         )
+        console.log(result)
         res.status(200).json(result)
     } catch (error) {
         res.status(500).send({ errMsg: "Internal server error" });
