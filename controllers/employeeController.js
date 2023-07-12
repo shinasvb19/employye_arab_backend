@@ -38,3 +38,18 @@ exports.editEmployee = async(req, res) => {
         res.status(500).json({ errMsg: "Internal server error" });
     }
 }
+
+exports.editFileName = async(req, res) => {
+    try {
+        await employeeSchema.findOneAndUpdate(
+            { _id: req.params.id, 'files._id': req.body.fileId },
+            { $set: { 'files.$.fileName': req.body.fileName} },
+            { upsert: true }
+          )
+          res.status(200).json('Success')
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ errMsg: "Internal server error" });
+        
+    }
+}
